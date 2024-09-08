@@ -68,7 +68,7 @@ extension uMyoDevicesManager: CBCentralManagerDelegate {
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         // Accesses local name and casts to type String
         // Returns if local name is not present or typecast fails
-        guard let localName = advertisementData["CBAdvertisementDataLocalNameKey"] as? String else {
+        guard let localName = advertisementData[CBAdvertisementDataLocalNameKey] as? String else {
             return
         }
         
@@ -79,7 +79,7 @@ extension uMyoDevicesManager: CBCentralManagerDelegate {
         
         // Accesses manufacturer data and casts to type Data
         // Returns if manufacturer data is not present or typecast fails
-        guard let data = advertisementData["CBAdvertisementDataManufacturerDataKey"] as? Data else {
+        guard let data = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data else {
             return
         }
         
