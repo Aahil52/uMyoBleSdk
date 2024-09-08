@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class uMyoDevice: ObservableObject {
+public class uMyoDevice: ObservableObject, Identifiable {
     public var id: UUID
     @Published public var lastDataTime: Date
     @Published public var lastDataID: Int
