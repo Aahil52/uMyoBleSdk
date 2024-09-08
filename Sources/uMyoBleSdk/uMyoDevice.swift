@@ -11,7 +11,7 @@ public class uMyoDevice: ObservableObject, Identifiable {
     public var id: UUID
     @Published public var lastDataTime: Date
     @Published public var lastDataID: Int
-    @Published public var batteryLevel: Int
+    @Published public var batteryLevel: Float
     @Published public var currentSpectrum: [Int]
     @Published public var currentMuscleLevel: Int
     @Published public var quaternion: Quaternion
@@ -38,7 +38,7 @@ public class uMyoDevice: ObservableObject, Identifiable {
         }
     }
     
-    public init(id: UUID, lastDataTime: Date, lastDataID: Int, batteryLevel: Int, currentSpectrum: [Int], currentMuscleLevel: Int, quaternion: Quaternion) {
+    public init(id: UUID, lastDataTime: Date, lastDataID: Int, batteryLevel: Float, currentSpectrum: [Int], currentMuscleLevel: Int, quaternion: Quaternion) {
         self.id = id
         self.lastDataTime = lastDataTime
         self.lastDataID = lastDataID
