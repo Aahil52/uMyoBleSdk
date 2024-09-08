@@ -30,15 +30,15 @@ public class uMyoDevicesManager: NSObject, ObservableObject {
         // [ dataID (1 byte) ] [ batteryLevel (1 byte) ] [ sp0 (1 byte) ] [ averageMuscleLevel (1 byte) ] [ sp1 (2 bytes) ] [ sp2 (2 bytes) ] [ sp3 (2 bytes) ] [ qw (2 bytes) ] [ qx (1 byte) ] [ qy (1 byte) ] [ qz (1 byte) ]
         let dataID = Int(data[0])
         let batteryLevel = Int(data[1])
-        let sp0 = Int(data[2]<<8)
+        let sp0 = Int(data[2])<<8
         let muscleLevel = Int(data[3])
-        let sp1 = Int((data[4]<<8) | data[5])
-        let sp2 = Int((data[6]<<8) | data[7])
-        let sp3 = Int((data[8]<<8) | data[9])
-        let qw = Int((data[10]<<8) | data[11])
-        let qx = Int(data[12]<<8)
-        let qy = Int(data[13]<<8)
-        let qz = Int(data[14]<<8)
+        let sp1 = (Int(data[4])<<8) | Int(data[5])
+        let sp2 = (Int(data[6])<<8) | Int(data[7])
+        let sp3 = (Int(data[8])<<8) | Int(data[9])
+        let qw = (Int(data[10])<<8) | Int(data[11])
+        let qx = Int(data[12])<<8
+        let qy = Int(data[13])<<8
+        let qz = Int(data[14])<<8
         
         let device = uMyoDevice(id: id, lastDataTime: dataTime, lastDataID: dataID, batteryLevel: (Float(batteryLevel) / 255), currentSpectrum: [sp0, sp1, sp2, sp3], currentMuscleLevel: muscleLevel, quaternion: uMyoDevice.Quaternion(w: qw, x: qx, y: qy, z: qz))
         
