@@ -25,10 +25,10 @@ public class uMyoDevice: ObservableObject {
     */
      
     public struct Quaternion {
-        var w: Int
-        var x: Int
-        var y: Int
-        var z: Int
+        public var w: Int
+        public var x: Int
+        public var y: Int
+        public var z: Int
     }
     
     public init(id: UUID, lastDataTime: Date, lastDataID: Int, batteryLevel: Int, currentSpectrum: [Int], currentMuscleLevel: Int, quaternion: Quaternion) {
