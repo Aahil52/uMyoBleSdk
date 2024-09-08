@@ -29,6 +29,13 @@ public class uMyoDevice: ObservableObject {
         public var x: Int
         public var y: Int
         public var z: Int
+        
+        public init(w: Int, x: Int, y: Int, z: Int) {
+            self.w = w
+            self.x = x
+            self.y = y
+            self.z = z
+        }
     }
     
     public init(id: UUID, lastDataTime: Date, lastDataID: Int, batteryLevel: Int, currentSpectrum: [Int], currentMuscleLevel: Int, quaternion: Quaternion) {
