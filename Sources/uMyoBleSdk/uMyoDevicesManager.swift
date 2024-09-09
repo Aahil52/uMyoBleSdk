@@ -14,9 +14,14 @@ public class uMyoDevicesManager: NSObject, ObservableObject {
     
     private var centralManager: CBCentralManager!
     
+    private var cleanupTimer = Timer()
+    
     public override init() {
         super.init()
+        
         centralManager = CBCentralManager(delegate: self, queue: nil)
+        
+        cleanupTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(cleanupOldDevices), userInfo: nil, repeats: true)
     }
     
     private func parse(_ data: Data, from id: UUID) {
@@ -52,6 +57,18 @@ public class uMyoDevicesManager: NSObject, ObservableObject {
         } else {
             devices.append(device)
         }
+    }
+    
+    // Removes existing device if lastDataTime > 5
+    @objc private func cleanupOldDevices() {
+        let currentTime = Date()
+        devices.removeAll { device in
+            return currentTime.timeIntervalSince(device.lastDataTime) > 5
+        }
+    }
+    
+    deinit {
+        cleanupTimer.invalidate()
     }
 }
 
