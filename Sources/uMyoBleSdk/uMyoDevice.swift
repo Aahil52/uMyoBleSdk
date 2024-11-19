@@ -6,15 +6,22 @@
 //
 
 import Foundation
+import Combine
 
 public class uMyoDevice: ObservableObject, Identifiable {
-    public var id: UUID
-    @Published public var lastDataTime: Date
-    @Published public var lastDataID: Int
+    @Published public var id: UUID
+    public var lastDataTime: Date
+    public var lastDataID: Int
     @Published public var batteryLevel: Float
-    @Published public var currentSpectrum: [Int]
-    @Published public var currentMuscleLevel: Int
-    @Published public var quaternion: Quaternion
+    public var currentSpectrum: [Int]
+    public var currentMuscleLevel: Int
+    public var quaternion: Quaternion
+    
+    // Subject for updates
+    private let updateSubject = PassthroughSubject<uMyoDevice, Never>()
+    public var updates: AnyPublisher<uMyoDevice, Never> {
+        updateSubject.eraseToAnyPublisher()
+    }
     
     /*
     struct Angles {
