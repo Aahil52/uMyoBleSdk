@@ -10,12 +10,12 @@ import Combine
 
 public class uMyoDevice: ObservableObject, Identifiable {
     public var id: UUID
-    public var lastDataTime: Date
-    public var lastDataID: Int
-    @Published public var batteryLevel: Float
-    public var currentSpectrum: [Int]
+    public var currentDataTime: Date
+    public var currentDataID: Int
+    @Published public var currentBatteryLevel: Float
+    public var currentSpectrum: (sp0: Int, sp1: Int, sp2: Int, sp3: Int)
     public var currentMuscleLevel: Int
-    public var quaternion: Quaternion
+    public var currentQuaternion: (w: Int, x: Int, y: Int, z: Int)
     
     // Subject for updates
     private let updateSubject = PassthroughSubject<uMyoDevice, Never>()
@@ -23,60 +23,39 @@ public class uMyoDevice: ObservableObject, Identifiable {
         updateSubject.eraseToAnyPublisher()
     }
     
-    /*
-    struct Angles {
-        var roll: Float
-        var pitch: Float
-        var yaw: Float
-    }
-    */
-     
-    public struct Quaternion {
-        public var w: Int
-        public var x: Int
-        public var y: Int
-        public var z: Int
-        
-        public init(w: Int, x: Int, y: Int, z: Int) {
-            self.w = w
-            self.x = x
-            self.y = y
-            self.z = z
-        }
-    }
-    
-    public init(id: UUID, lastDataTime: Date, lastDataID: Int, batteryLevel: Float, currentSpectrum: [Int], currentMuscleLevel: Int, quaternion: Quaternion) {
+    public init(id: UUID, currentDataTime: Date, currentDataID: Int, currentBatteryLevel: Float, currentSpectrum: (sp0: Int, sp1: Int, sp2: Int, sp3: Int), currentMuscleLevel: Int, currentQuaternion: (w: Int, x: Int, y: Int, z: Int)) {
         self.id = id
-        self.lastDataTime = lastDataTime
-        self.lastDataID = lastDataID
-        self.batteryLevel = batteryLevel
+        self.currentDataTime = currentDataTime
+        self.currentDataID = currentDataID
+        self.currentBatteryLevel = currentBatteryLevel
         self.currentSpectrum = currentSpectrum
         self.currentMuscleLevel = currentMuscleLevel
-        self.quaternion = quaternion
+        self.currentQuaternion = currentQuaternion
     }
     
     public func update(with device: uMyoDevice) {
-        self.lastDataTime = device.lastDataTime
+        self.currentDataTime = device.currentDataTime
         
-        if device.lastDataID < self.lastDataID % 256 {
+        if device.currentDataID < self.currentDataID % 256 {
             // Handle rollover
-            self.lastDataID += 256 + (device.lastDataID - (self.lastDataID % 256))
+            self.currentDataID += 256 + (device.currentDataID - (self.currentDataID % 256))
         } else {
             // Regular update
-            self.lastDataID += device.lastDataID - (self.lastDataID % 256)
+            self.currentDataID += device.currentDataID - (self.currentDataID % 256)
         }
         
-        self.batteryLevel = device.batteryLevel
+        self.currentBatteryLevel = device.currentBatteryLevel
         self.currentSpectrum = device.currentSpectrum
         self.currentMuscleLevel = device.currentMuscleLevel
-        self.quaternion = device.quaternion
+        self.currentQuaternion = device.currentQuaternion
         
         // Emit the updated state
         updateSubject.send(self)
     }
     
+    // Incomplete computeAngles method
     /*
-    func computeAngles(from q: Quaternion) -> Angles {
+    func computeAngles(from q: (w: Int, x: Int, y: Int, z: Int)) -> (roll: Float, pitch: Float, yaw: Float) {
         // Compute Roll
         let sinrCosp = 2 * (q.w * q.x + q.y * q.z)
         let cosrCosp = 1 - 2 * (q.x * q.x + q.y * q.y)
@@ -95,7 +74,7 @@ public class uMyoDevice: ObservableObject, Identifiable {
         let yawRad = atan2(sinyCosp, cosyCosp)
         let yawDeg = (180 / .pi) * yawRad
         
-        return Angles(roll: rollDeg, pitch: pitchDeg, yaw: yawDeg)
+        return (roll: rollDeg, pitch: pitchDeg, yaw: yawDeg)
     }
      */
 }
