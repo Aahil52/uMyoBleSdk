@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 public class uMyoDevice: ObservableObject, Identifiable {
-    @Published public var id: UUID
+    public var id: UUID
     public var lastDataTime: Date
     public var lastDataID: Int
     @Published public var batteryLevel: Float
@@ -57,7 +57,15 @@ public class uMyoDevice: ObservableObject, Identifiable {
     
     public func update(with device: uMyoDevice) {
         self.lastDataTime = device.lastDataTime
-        self.lastDataID = device.lastDataID
+        
+        if device.lastDataID < self.lastDataID % 256 {
+            // Handle rollover
+            self.lastDataID += 256 + (device.lastDataID - (self.lastDataID % 256))
+        } else {
+            // Regular update
+            self.lastDataID += device.lastDataID - (self.lastDataID % 256)
+        }
+        
         self.batteryLevel = device.batteryLevel
         self.currentSpectrum = device.currentSpectrum
         self.currentMuscleLevel = device.currentMuscleLevel
