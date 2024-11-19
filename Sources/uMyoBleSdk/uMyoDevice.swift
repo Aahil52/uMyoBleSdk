@@ -62,6 +62,9 @@ public class uMyoDevice: ObservableObject, Identifiable {
         self.currentSpectrum = device.currentSpectrum
         self.currentMuscleLevel = device.currentMuscleLevel
         self.quaternion = device.quaternion
+        
+        // Emit the updated state
+        updateSubject.send(self)
     }
     
     /*
