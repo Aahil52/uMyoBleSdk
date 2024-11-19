@@ -11,7 +11,7 @@ import Combine
 public class uMyoDevice: ObservableObject, Identifiable {
     public var id: UUID
     public var lastDataTime: Date
-    public var lastDataID: Int
+    @Published public var lastDataID: Int
     @Published public var batteryLevel: Float
     public var currentSpectrum: [Int]
     public var currentMuscleLevel: Int
