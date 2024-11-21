@@ -13,9 +13,9 @@ public class uMyoDevice: ObservableObject, Identifiable {
     public var currentDataTime: Date
     public var currentDataID: Int
     @Published public var currentBatteryLevel: Float
-    public var currentSpectrum: (sp0: Int, sp1: Int, sp2: Int, sp3: Int)
+    public var currentSpectrum: Spectrum
     public var currentMuscleLevel: Int
-    public var currentQuaternion: (w: Int, x: Int, y: Int, z: Int)
+    public var currentQuaternion: Quaternion
     
     // Subject for updates
     private let updateSubject = PassthroughSubject<uMyoDevice, Never>()
@@ -23,7 +23,7 @@ public class uMyoDevice: ObservableObject, Identifiable {
         updateSubject.eraseToAnyPublisher()
     }
     
-    public init(id: UUID, currentDataTime: Date, currentDataID: Int, currentBatteryLevel: Float, currentSpectrum: (sp0: Int, sp1: Int, sp2: Int, sp3: Int), currentMuscleLevel: Int, currentQuaternion: (w: Int, x: Int, y: Int, z: Int)) {
+    public init(id: UUID, currentDataTime: Date, currentDataID: Int, currentBatteryLevel: Float, currentSpectrum: Spectrum, currentMuscleLevel: Int, currentQuaternion: Quaternion) {
         self.id = id
         self.currentDataTime = currentDataTime
         self.currentDataID = currentDataID
