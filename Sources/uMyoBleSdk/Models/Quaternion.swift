@@ -8,8 +8,8 @@
 import Foundation
 
 public struct Quaternion: Codable {
-    let w: Int
-    let x: Int
-    let y: Int
-    let z: Int
+    public let w: Int
+    public let x: Int
+    public let y: Int
+    public let z: Int
 }

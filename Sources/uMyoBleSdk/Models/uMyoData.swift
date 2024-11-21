@@ -8,10 +8,10 @@
 import Foundation
 
 public struct uMyoData: Identifiable, Encodable {
-    let id = UUID()
-    let dataTime: Date
-    let dataID: Int
-    let spectrum: Spectrum
-    let muscleLevel: Int
-    let quaternion: Quaternion
+    public let id = UUID()
+    public let dataTime: Date
+    public let dataID: Int
+    public let spectrum: Spectrum
+    public let muscleLevel: Int
+    public let quaternion: Quaternion
 }

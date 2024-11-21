@@ -8,8 +8,8 @@
 import Foundation
 
 public struct Spectrum: Codable {
-    let sp0: Int
-    let sp1: Int
-    let sp2: Int
-    let sp3: Int
+    public let sp0: Int
+    public let sp1: Int
+    public let sp2: Int
+    public let sp3: Int
 }
