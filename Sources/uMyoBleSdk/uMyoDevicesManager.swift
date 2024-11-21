@@ -45,7 +45,7 @@ public class uMyoDevicesManager: NSObject, ObservableObject {
         let qy = Int(data[13])<<8
         let qz = Int(data[14])<<8
         
-        let device = uMyoDevice(id: id, currentDataTime: dataTime, currentDataID: dataID, currentBatteryLevel: (Float(batteryLevel) / 255), currentSpectrum: (sp0: sp0, sp1: sp1, sp2: sp2, sp3: sp3), currentMuscleLevel: muscleLevel, currentQuaternion: (w: qw, x: qx, y: qy, z: qz))
+        let device = uMyoDevice(id: id, currentDataTime: dataTime, currentDataID: dataID, currentBatteryLevel: (Float(batteryLevel) / 255), currentSpectrum: Spectrum(sp0: sp0, sp1: sp1, sp2: sp2, sp3: sp3), currentMuscleLevel: muscleLevel, currentQuaternion: Quaternion(w: qw, x: qx, y: qy, z: qz))
         
         updateDevices(with: device)
     }
