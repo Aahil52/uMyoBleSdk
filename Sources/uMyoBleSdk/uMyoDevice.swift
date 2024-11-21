@@ -16,6 +16,7 @@ public class uMyoDevice: ObservableObject, Identifiable {
     public var currentSpectrum: Spectrum
     public var currentMuscleLevel: Int
     public var currentQuaternion: Quaternion
+    @Published public var isConnected = true
     
     // Subject for updates
     private let updateSubject = PassthroughSubject<uMyoDevice, Never>()

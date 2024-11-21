@@ -63,7 +63,11 @@ public class uMyoDevicesManager: NSObject, ObservableObject {
     @objc private func cleanupOldDevices() {
         let currentTime = Date()
         devices.removeAll { device in
-            return currentTime.timeIntervalSince(device.currentDataTime) > 5
+            let shouldRemove = currentTime.timeIntervalSince(device.currentDataTime) > 5
+            if shouldRemove {
+                device.isConnected = false
+            }
+            return shouldRemove
         }
     }
     
